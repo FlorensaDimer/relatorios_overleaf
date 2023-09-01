@@ -1,0 +1,115 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage[lmargin=3cm,tmargin=3cm,rmargin=2cm,bmargin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{amsthm,amssymb,amsmath}
+\usepackage{tabularx}
+\usepackage {float}
+
+\graphicspath {{./images/}}
+
+\begin{document}
+\include{capa}
+
+    
+    \section{Fonte de Dados Escolhida} \label{fonte}
+    
+    A base de dados escolhida para o desenvolvimento do dashboard foi retirada do site oficial do governo do Rio Grande do Sul, usando dados abertos sobre indicadores criminais dos municípios do estado, de janeiro de 2020  até janeiro de 2023, disponíveis em: \url{https://dados.rs.gov.br/organization/secretaria-da-seguranca-publica}.
+
+    
+    \section{Perguntas de Negócio Definidas} \label{perguntas}
+           
+        \begin{enumerate}
+            
+            \item Os índices de criminalidade em regiões litorâneas (Arroio do Sal, Capão da Canoa, Cidreira, Imbé, Rio Grande, São Lourenço do Sul, Torres, Tramandaí e Xangri-Lá) aumentam durante o verão em comparação ao inverno? \label{p1}
+
+            \item Quais são os tipos de crimes mais cometidos na região litorânea no inverno e no verão? \label{p2}
+
+            \item Os indicadores criminais na região metropolitana (Alvorada, Cachoeirinha, Canoas, Gravataí, Novo Hamburgo, Porto Alegre, São Leopoldo e Viamão) diminuem durante época de estio?
+            \label{p3}
+            
+        \end{enumerate}
+
+    
+    \section{O Processo de ETL}
+    
+        \subsection{Extração}
+            A extração dos dados selecionados para a pesquisa foi feita na base de dados abertos do Rio Grande do Sul, assim como dito na Seção \ref{fonte} desta pesquisa. Na página web, os dados estavam separados em planilhas de acordo com os meses, todos em formato .xlsx (planilha de Excel). Foi importante verificar as informações dispostas nesses arquivos, pois as planilhas referente aos anos de 2020 e 2021 não continham a coluna “total de vitimas de crimes violentos”, que as planilhas 2022 possuía. Essa coluna foi desconsiderada.
+            
+        \subsection{Transformação}         
+           A transformação dos dados inclui agrupamento de todos os valores em uma nova planilha do Excel, desconsiderando as colunas ditas anteriormente. Foi criada uma coluna para os meses, de forma que o programa Tableau consiga processar as datas e organizar as informações agora agrupadas.    
+
+        \subsection{Load (Carregar)}
+            O carregamento dos dados foi realizado utilizando a ferramente Tableau para serem produzidos dashboards informativos que respondam às perguntas de negócios, Seção \ref{perguntas}.
+
+    \pagebreak
+    \section{Os Dashboards}
+        \par O primeiro dashboard (Figura \ref{dash1}) não utiliza de ferramentas de filtro e interatividade para manter o foco nas cidades alvo de análise.
+        
+        \begin{figure}[H]
+          \begin{centering}
+          \includegraphics[scale=0.55]{Imagens/Dashboard_nao_Interativo.png}
+          \caption{Dashboard Não Interativo sobre as Perguntas de Negócio}
+          \label{dash1}
+          \end{centering}
+        \end{figure}
+        
+        \pagebreak
+        
+        \par O segundo dashboard (Figura \ref{dash2}) utiliza de ferramentas de filtro e interatividade para permitir ao usuário uma análise exploratória dos dados.
+        
+        \begin{figure}[H]
+          \centering
+          \includegraphics[scale=0.55]{Imagens/Dashboard_Interativo.png}
+          \caption{Dashboard Interativo dos Dados em Geral}
+          \label{dash2}
+        \end{figure}
+        
+    \pagebreak
+    
+    \section{Respostas das perguntas de negócios}
+    
+    \begin{enumerate}
+    
+        \item Como pode ser visto na Figura \ref{fig3}, os índices de criminalidade nas regiões litorâneas do Rio Grande do Sul aumentam durante o verão em comparação aos índices de criminalidade do inverno.
+        
+            \begin{figure}[H]
+              \centering
+              \includegraphics[scale=0.50]{Imagens/Total_Crimes_por_Estacao_Regiao_Litoranea.png}
+              \caption{Total de Crimes por Estação na Região Litorânea do Rio Grande do Sul}
+              \label{fig3}
+            \end{figure} 
+             
+
+        \item Utilizando a Figura \ref{fig4} como referência, é possível afirmar que os crimes mais cometidos, tanto no verão, quanto no inverno, nas regiões litorâneas são: furto, estelionato, roubo, tráfico de entorpecentes e posse de entorpecentes. Ademais a média de crimes aumenta no verão.
+        
+            \begin{figure}[H]
+              \centering
+              \includegraphics[scale=0.50]{Imagens/Total_de_cada_Crime_por_Estacao_Regiao_Litoranea.png}
+              \caption{Total de cada Crime por Estação na Região Litorânea do Rio Grande do Sul}
+              \label{fig4}
+            \end{figure} 
+
+        \item Com base nas informações da Figura \ref{fig5}, há uma diminuição de crimes na região metropolitana durante a época de estio.
+
+        \begin{figure}[H]
+              \centering
+              \includegraphics[scale=0.50]{Imagens/Total_Crimes_por_Estacao_em_Porto_Alegre_Regiao_Metropolitana.png}
+              \caption{Total Crimes por Estacão em Porto Alegre e na Região Metropolitana}
+              \label{fig5}
+            \end{figure}
+    \end{enumerate}
+    \subsection{Resultado}
+        \par Logo, é possível concluir que dependendo da época do ano, existe uma variação na taxa de criminalidade no Rio Grande do Sul. Sendo mais específico, a região Metropolitana tende a ter seus índices de criminalidade diminuídos no verão. Em contrapartida, os índices de crimes nas regiões litorâneas acabam aumentado durante a época de veraneio.
+
+
+    \section{Considerações Finais}
+    
+        \par A análise dos dados do problema revelou a efetividade da ferramenta Tableau no processo. Através dela, foi possível identificar prontamente dados incongruentes e realizar as devidas correções. Além disso, com base nessa análise, foi possível formular perguntas relevantes para o desenvolvimento de visualizações que visam responder às questões de negócios levantadas para este projeto. 
+        \par Assim, o trabalho realizado foi um ótimo exercício de conhecimentos conceituais e habilidades práticas adquiridos durante o semestre, exigindo comprometimento por parte de todos os integrantes do grupo. No caso, o grupo se autoavalia com uma nota 10 por conta de sua colaboração coletiva, entendimento da proposta, respostas concretas para as perguntas e uma conclusão satisfatória do trabalho, em que as principais dificuldades envolveram a filtragem das informações necessárias para a tarefa, e corrigir possíveis inconsistências nos dados selecionados, embora que estas foram rapidamente resolvidas.
+        
+\end{document}
